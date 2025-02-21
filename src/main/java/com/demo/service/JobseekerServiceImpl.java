@@ -10,8 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.demo.entites.Activity;
+import com.demo.entites.Address;
+import com.demo.entites.Education;
 import com.demo.entites.Jobseeker;
 import com.demo.repository.JobseekerRepository;
+
+import jakarta.persistence.EntityManager;
 @Service
 public class JobseekerServiceImpl implements JobseekerService {
 	
@@ -20,6 +24,9 @@ public class JobseekerServiceImpl implements JobseekerService {
 	
 	@Autowired
 	private ActivityService activityService;
+	
+	@Autowired
+	private EntityManager entityManager;
 
 	@Override
 	public List<Jobseeker> getAllJobseekers() {
@@ -40,6 +47,19 @@ public class JobseekerServiceImpl implements JobseekerService {
 
 	@Override
 	public Jobseeker addJobseeker(Jobseeker jobseeker) {
+		Address address = jobseeker.getAddress();
+		address = entityManager.merge(address);
+		jobseeker.setAddress(address);
+		List<Education> educations = jobseeker.getEducation();
+		for(int i=0;i<=educations.size();i++)
+		{
+			Education education = educations.get(i);
+			 education = entityManager.merge(education);
+             educations.set(i, education);
+		}
+		
+		jobseeker.setEducation(educations);
+		jobseeker = entityManager.merge(jobseeker);
 		Jobseeker jobseeker2 = jobseekerRepository.save(jobseeker);
 		Activity activity = new Activity();
 		activity.setActivityDate(new Date());

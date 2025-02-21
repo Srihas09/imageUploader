@@ -51,6 +51,16 @@ public class Jobseeker {
 		return jobSeekerId;
 	}
 
+	
+	public User getUser() {
+		return user;
+	}
+
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 
 	public void setJobSeekerId(long jobSeekerId) {
 		this.jobSeekerId = jobSeekerId;
@@ -128,17 +138,18 @@ public class Jobseeker {
 
 	
 	
+	
 	@Override
 	public String toString() {
 		return "Jobseeker [jobSeekerId=" + jobSeekerId + ", name=" + name + ", email=" + email + ", phone=" + phone
-				+ ", address=" + address + ", education=" + education + ", experience=" + experience + ", applications="
-				+ applications + "]";
+				+ ", address=" + address + ", user=" + user + ", education=" + education + ", experience=" + experience
+				+ ", applications=" + applications + "]";
 	}
 
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(address, applications, education, email, experience, jobSeekerId, name, phone);
+		return Objects.hash(address, applications, education, email, experience, jobSeekerId, name, phone, user);
 	}
 
 
@@ -154,7 +165,8 @@ public class Jobseeker {
 		return Objects.equals(address, other.address) && Objects.equals(applications, other.applications)
 				&& Objects.equals(education, other.education) && Objects.equals(email, other.email)
 				&& Objects.equals(experience, other.experience) && jobSeekerId == other.jobSeekerId
-				&& Objects.equals(name, other.name) && Objects.equals(phone, other.phone);
+				&& Objects.equals(name, other.name) && Objects.equals(phone, other.phone)
+				&& Objects.equals(user, other.user);
 	}
 
 
